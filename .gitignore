@@ -2,4 +2,6 @@
 node_modules/*
 
 #Ignore .env files
-.env.*
+.env.dev
+.env.qas
+.env.prod
