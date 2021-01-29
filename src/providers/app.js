@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require('express');
 const helmet = require('helmet');
 const xss = require('xss-clean');
@@ -5,7 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const compression = require('compression');
 const cors = require('cors');
 
-const routes = require('./routes/index');
+const routes = require('../routes/index');
 
 const app = express();
 
@@ -30,5 +32,6 @@ app.use(cors());
 app.options('*', cors());
 
 app.use('/playground', routes);
+
 
 module.exports = app;
