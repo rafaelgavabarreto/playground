@@ -4,12 +4,13 @@ const bluebird = require('bluebird');
 const cluster = require('cluster');
 const app = require('./providers/app');
 const config = require('./config/index');
-const numCPUs = require('os').cpus().length;
+// const numCPUs = require('os').cpus().length;
+const numCPUs = 1;
 
 let server;
 
 if (cluster.isMaster) {
-
+    
   console.info(`Master ${process.pid} is running`);
 
   // Fork workers.
@@ -20,7 +21,6 @@ if (cluster.isMaster) {
   cluster.on('exit', (worker, code, signal) => {
     console.error(`worker ${worker.process.pid} died`);
   });
-  
 } else {
 
     const dsn = config.database;
@@ -35,8 +35,9 @@ if (cluster.isMaster) {
             throw error;
         }
         else {
-            console.info('Connected to mongo: ' + dsn);
             server = app.listen(config.server.port, () => {
+                console.info(`Worker ${process.pid} start`);
+                console.info('Connected to mongo: ' + dsn);
                 console.info(`Listening to port ${config.server.port}`);
             });
         }

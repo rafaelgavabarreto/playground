@@ -33,5 +33,4 @@ app.options('*', cors());
 
 app.use('/playground', routes);
 
-
 module.exports = app;
